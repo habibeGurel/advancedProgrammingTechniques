@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="https://blm-fsmvu.github.io/305/images/icon192.png">
+    <title>fetch</title>
+
+    <style>
+        /* CSS comment */
+        body {
+            max-width: 440px;
+        }
+
+        #url {
+            width: 190px;
+        }
+
+        span,
+        #url {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- HTML comment: Modify all items marked xxx -->
+
+    <h2 id=title title="Put your name here"></h2>
+    <p title="Battery level (integer)">
+        Battery Status: <span id=lev></span>
+    </p>
+    <p title="Online Status">
+        Online Status: <span id=onSt></span>
+    </p>
+    <p title="Keyboard">
+        Keyboard: <span id=kinput></span>
+    </p>
+    <p p id="key" title="MyLog">
+    </p>
+
+    <hr />
+    <b>Sample code</b>
+    <pre id=sample>This text is not shown. Why?</pre>
+
+    <hr />
+
+    <script>
+        "use strict";
+        window.onoffline = (event) => {
+            onSt.innerText = "not connected -- offline";
+        };
+        window.ononline = (event) => {
+            onSt.innerText = "connected -- online";
+        };
+        navigator.getBattery().then(function (battery) {
+            battery.onlevelchange = function () {
+                lev.innerText = '';
+                lev.innerText += '\n'
+                lev.innerText += (battery.charging ? '\ncharging' : '\ndischarging');
+                lev.innerText += '\n%' + battery.level * 100;
+
+                if (battery.charging)
+                    lev.innerText += "\nCharging time: " + (battery.chargingTime / 60) + ":" + (battery.chargingTime % 60) + " remaining";
+                else
+                    lev.innerText += "\nDischarging time: " + (battery.dischargingTime / 60) + ":" + (battery.dischargingTime % 60) + " remaining";
+            };
+        });
+        const input = document.querySelector('navigator.platform');
+        const log = document.getElementById('key');
+
+        window.addEventListener('keydown', logKey);
+
+        function logKey(e) {
+            log.textContent += ` ${e.code}`;
+        }
+
+        function init() {
+            //complete the code below
+            //plat.innerText = navigator.platform
+            //*****
+            check()
+        }
+
+        function check() {
+            //complete the code below
+
+        }
+        title.innerText = document.title;
+        sample.innerText = init + '\n' + check;
+        init();
+    </script>
+
+</body>
+
+</html>
