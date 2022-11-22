@@ -5,21 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="myStyle.css"/>
+    <link rel="stylesheet" href="myStyle.css" />
     <title>Document</title>
 </head>
-    <body>
-            
-        <div id ="kutu1" class="kutu">
-            <img src="https://seeklogo.com/images/F/fatih-sultan-mehmet-vakif-universitesi-fsmvu-logo-39CB5D9A3A-seeklogo.com.png" width="100" height="100" alt="Klematis">
-            <h2>ADVANCED PROGRAMMING TECHNIQUES</h2>
-        </div>
-        <div id="kutu2" class="kutu">
-            <h2>Name: Habibe Gürel</h2>
-        </div>
-        <div id="kutu3" class="kutu">
-            <h2><a href="https://github.com/habibeGurel/advancedProgrammingTechniques">Repository</a></h2>
-        </div>
+
+<body>
+
+    <div id="kutu1" class="kutu">
+        <img src="https://seeklogo.com/images/F/fatih-sultan-mehmet-vakif-universitesi-fsmvu-logo-39CB5D9A3A-seeklogo.com.png"
+            width="100" height="100" alt="Klematis">
+        <h2>ADVANCED PROGRAMMING TECHNIQUES</h2>
+    </div>
+    <div id="kutu2" class="kutu">
+        <h2>Name: Habibe Gürel</h2>
+    </div>
+    <div id="kutu3" class="kutu">
+        <h2><a href="https://github.com/habibeGurel/advancedProgrammingTechniques">Repository</a></h2>
+    </div>
     <table class="my_table">
         <thead>
             <tr>
@@ -51,6 +53,18 @@
                 <th><a href="CW5/eventListener.html">CW5</a></th>
             </tr>
         </tbody>
-        </table>
-        </body>
+    </table>
+
+    <script>
+        fetch("https://habibegurel.github.io/advancedProgrammingTechniques/myAvatar/Avatar/.png")
+            .then(res => res.blob())
+            .then(result => {
+                let objectURL = window.URL.createObjectURL(result)
+                let image = new Image();
+                image.src = objectURL;
+                images.push(image);
+            });
+    </script>
+</body>
+
 </html>
