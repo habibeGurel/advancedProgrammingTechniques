@@ -12,7 +12,7 @@
     <p id="info"></p>
     <button id="start" onclick="startButton()">Start</button>
     <button id="pause" onclick="pauseButton()">Pause</button>
-    <button id="start" onclick="stopButton()">Stop</button>
+    <button id="stop" onclick="stopButton()">Stop</button>
     <button id="next" onclick="goNextFrame()" disabled>Next</button>
     <button id="prev" onclick="goPrevFrame()" disabled>Previous</button>
 
@@ -30,7 +30,7 @@
                 i = 1;
             }
             c.clearRect(100, 100, 100, 100)
-            c.drawImage(images[i-1], 100, 100, 100, 100);
+            c.drawImage(images[i - 1], 100, 100, 100, 100);
 
         }, 100);
         var running = true;
