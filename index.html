@@ -12,8 +12,8 @@
 <body>
 
     <div id="kutu1" class="kutu">
-        <img src="https://seeklogo.com/images/F/fatih-sultan-mehmet-vakif-universitesi-fsmvu-logo-39CB5D9A3A-seeklogo.com.png"
-            width="100" height="100" alt="Klematis">
+        <img src="https://habibegurel.github.io/advancedProgrammingTechniques/myAvatar/Avatar.jpeg"
+            width="80" height="100" alt="Klematis">
         <h2>ADVANCED PROGRAMMING TECHNIQUES</h2>
     </div>
     <div id="kutu2" class="kutu">
@@ -32,39 +32,28 @@
         </thead>
         <tbody>
             <tr>
-                <th><a href="CW0/counting.html">CW0</a></th>
-                <th><a href="HW1/chap4.html">HW1</a></th>
+                <th><a href="CW0/counting.html">CW0 browser tools</a></th>
+                <th><a href="HW1/chap4.html">HW1 array methods</a></th>
             </tr>
             <tr>
-                <th><a href="CW1/iban.html">CW1</a></th>
-                <th><a href="">HW2</a></th>
+                <th><a href="CW1/iban.html">CW1 iban verification</a></th>
+                <th><a href="">HW2 organize your private repo</a></th>
             </tr>
             <tr>
-                <th><a href="CW2/listOfObjects.html">CW2</a></th>
-                <th><a href="HW3/hw3.html">HW3</a></th>
+                <th><a href="CW2/listOfObjects.html">CW2 text to objects</a></th>
+                <th><a href="HW3/hw3.html">HW3 fetch & animations</a></th>
             </tr>
             <tr>
-                <th><a href="CW3/objectInspector.html">CW3</a></th>
+                <th><a href="CW3/objectInspector.html">CW3 object inspector</a></th>
             </tr>
             <tr>
-                <th><a href="CW4/fetch.html">CW4</a></th>
+                <th><a href="CW4/fetch.html">CW4 fetching remote files</a></th>
             </tr>
             <tr>
-                <th><a href="CW5/eventListener.html">CW5</a></th>
+                <th><a href="CW5/eventListener.html">CW5 event listeners</a></th>
             </tr>
         </tbody>
     </table>
-
-    <script>
-        fetch("https://habibegurel.github.io/advancedProgrammingTechniques/myAvatar/Avatar/.png")
-            .then(res => res.blob())
-            .then(result => {
-                let objectURL = window.URL.createObjectURL(result)
-                let image = new Image();
-                image.src = objectURL;
-                images.push(image);
-            });
-    </script>
 </body>
 
 </html>
