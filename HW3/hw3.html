@@ -10,15 +10,14 @@
 
 <body>
     <p id="info"></p>
-    <button id="start" onclick="start()">Start</button>
-    <button id="pause" onclick="pause()">Pause</button>
-    <button id="start" onclick="stop()">Stop</button>
-    <button id="next" onclick="nextFrame()" disabled>Next</button>
-    <button id="prev" onclick="prevFrame()" disabled>Previous</button>
+    <button id="start" onclick="startButton()">Start</button>
+    <button id="pause" onclick="pauseButton()">Pause</button>
+    <button id="start" onclick="stopButton()">Stop</button>
+    <button id="next" onclick="goNextFrame()" disabled>Next</button>
+    <button id="prev" onclick="goPrevFrame()" disabled>Previous</button>
 
     <script>
         var fix = setInterval(function () {
-            //console.log(i);
             if (running) {
                 i++;
             }
@@ -31,7 +30,7 @@
                 i = 1;
             }
             c.clearRect(100, 100, 100, 100)
-            c.drawImage(images[i], 100, 100, 100, 100);
+            c.drawImage(images[i-1], 100, 100, 100, 100);
 
         }, 100);
         var running = true;
@@ -40,39 +39,28 @@
         var canvas = document.createElement("canvas");
         var c = canvas.getContext("2d");
         var i = 1;
-        var images = [];
-        images.length = 9;
+        var images = new Array();
         function animate() {
             document.body.append(canvas);
             canvas.width = 250;
             canvas.height = 250;
+        }
+        setInterval(fix, 100);
 
-            for (var i = 1; i < images.length; i++) {
-                images[i] = new Image();
-                //images[i].src = "sprites/" + i.toString() + ".png";
-                // const info = document.getElementById("info");
-                //for (let i = 1; i < images.length; i++) {
-                //  const img = document.createElement("img");
-                var abc = `https://habibegurel.github.io/advancedProgrammingTechniques/HW3/sprites/${i}.png`;
-                //info.appendChild(img);
-                //const br = document.createElement("br");
-                //info.appendChild(br);
-                //}
-
-                fetch(abc)
-                    .then(res => res.blob()) // Gets the response and returns it as a blob 
-                    .then(blob => {
-                        let objectURL = URL.createObjectURL(blob);
-                        console.log(objectURL);
-                        usableImage = objectURL;
-                        images[i].src = usableImage;
+        function fetching() {
+            for (var i = 1; i < 9; i++) {
+                fetch("https://habibegurel.github.io/advancedProgrammingTechniques/HW3/sprites/" + i.toString() + ".png")
+                    .then(res => res.blob())
+                    .then(result => {
+                        let objectURL = window.URL.createObjectURL(result)
+                        let image = new Image();
+                        image.src = objectURL;
+                        images.push(image);
                     });
-
             }
-            setInterval(fix, 100);
         }
 
-        function pause() {
+        function pauseButton() {
             running
                 ? (running = false) & (frameChange = true)
                 : (running = true) & (frameChange = false);
@@ -83,43 +71,44 @@
                 document.getElementById("next").setAttribute("disabled", "disabled");
                 document.getElementById("prev").setAttribute("disabled", "disabled");
             }
-            document.getElementById("info").innerHTML = "Pause";
+            document.getElementById("info").innerHTML = "The Dog Paused";
         }
-        function start() {
+        function startButton() {
             goFirstFrame = true;
             running = true;
             document.getElementById("next").setAttribute("disabled", "disabled");
             document.getElementById("prev").setAttribute("disabled", "disabled");
-            document.getElementById("info").innerHTML = "Start";
+            document.getElementById("info").innerHTML = "The Dog Starts To Run";
         }
-        function stop() {
+        function stopButton() {
             running = false;
             frameChange = true;
             if (frameChange) {
                 document.getElementById("next").removeAttribute("disabled");
                 document.getElementById("prev").removeAttribute("disabled");
             }
-            document.getElementById("info").innerHTML = "Stop";
+            document.getElementById("info").innerHTML = "The Dog Stopped";
         }
 
-        function nextFrame() {
+        function goNextFrame() {
             i++;
             if (i >= 9) {
                 i = 1;
             }
 
-            document.getElementById("info").innerHTML = "Next";
+            document.getElementById("info").innerHTML = "Next Movement";
         }
-        function prevFrame() {
+        function goPrevFrame() {
             i--;
             if (i <= 1) {
                 i = 8;
             }
-            document.getElementById("info").innerHTML = "Prev";
+            document.getElementById("info").innerHTML = "Previous Movement";
         }
     </script>
     <script>
         animate();
+        fetching();
     </script>
 </body>
 
