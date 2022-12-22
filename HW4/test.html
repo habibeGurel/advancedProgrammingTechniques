@@ -43,16 +43,19 @@
 
             // dokunuş platformun sol kenarından sağda ise platformu sağa hareket ettir
             if (touchX > platformX) {
-                platformX += 20;
-                if (platformX + platformWidth > canvas.width) {
+                if (platformX + platformWidth >= canvas.width) {
                     platformX = canvas.width - platformWidth;
+                } else {
+                    platformX += 20;
                 }
             }
             // dokunuş platformun sol kenarından sola ise platformu sola hareket ettir
             else {
-                platformX -= 20;
-                if (platformX < 0) {
+
+                if (platformX <= 0) {
                     platformX = 0;
+                } else {
+                    platformX -= 20;
                 }
             }
         });
@@ -64,14 +67,18 @@
             } else if (e.keyCode === 40) {
                 console.log('down arrow pressed')
             } else if (e.keyCode === 37) {
-                platformX -= 20;
-                if (platformX < 0) {
+
+                if (platformX <= 0) {
                     platformX = 0;
+                } else {
+                    platformX -= 20;
                 }
             } else if (e.keyCode === 39) {
-                platformX += 20;
-                if (platformX + platformWidth > canvas.width) {
+
+                if (platformX + platformWidth >= canvas.width) {
                     platformX = canvas.width - platformWidth;
+                } else {
+                    platformX += 20;
                 }
             }
         }
@@ -98,13 +105,14 @@
                 ballX > platformX && // topun sol kenarı platformun sol kenarından sağda olmalı
                 ballX < platformX + platformWidth) { // topun sağ kenarı platformun sağ kenarından sol da olmalı
                 ballSpeedY *= -1;
+                ballY += 2;
                 score++;
                 scoreElement.innerHTML = score;
-                if (score % 2 == 0) {
+                if (score % 5 == 0) {
                     level++;
                     levelElement.innerHTML = level;
                     platformWidth = platformWidth * 0.9;
-                    platformX = (canvas.width - platformWidth) / 2;
+
                 }
             }
             // topu platformdan aşağı düşürdüğünde oyunu bitir
