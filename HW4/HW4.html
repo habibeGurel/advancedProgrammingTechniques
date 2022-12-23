@@ -1,11 +1,11 @@
 <html>
 
 <head>
-    <title>Topu Havada Tutma Oyunu</title>
+    <title>ZIPLAYAN TOP</title>
 </head>
 
 <body>
-    <h1>Topu Havada Tutma Oyunu</h1>
+    <h1>ZIPLAYAN TOP</h1>
     <p>SKOR: <span id="score">0</span></p>
     <p>LEVEL: <span id="level">0</span></p>
     <canvas id="gameCanvas" width="600" height="400"></canvas>
@@ -13,15 +13,15 @@
 
 
     <script>
-        // canvas elemanını seç
+        // canvas elemanını seçtim
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
 
-        // skoru göstermek için kullanılacak HTML elemanını seç
+        // skoru göstermek için kullanılacak HTML elemanını seçtim
         const scoreElement = document.getElementById("score");
 
         const levelElement = document.getElementById("level");
-        // tuşa basılı tutma olayını dinleyecek HTML elemanını seç
+        // tuşa basılı tutma olayını dinleyecek HTML elemanını seçtim
         const keysElement = document.getElementById("keys");
 
         // platformun başlangıç koordinatı
@@ -35,13 +35,13 @@
         let ballSpeedX = -2;
         let ballSpeedY = -2;
 
-        // dokunuşları dinleyen bir dinleyici ekle
+        // dokunuşları dinleyen bir dinleyici ekledim
         canvas.addEventListener("touchstart", e => {
-            // dokunuşun koordinatlarını al
+            // dokunuşun koordinatlarını aldım
             const touch = e.touches[0];
             const touchX = touch.clientX;
 
-            // dokunuş platformun sol kenarından sağda ise platformu sağa hareket ettir
+            // dokunuş platformun sol kenarından sağda ise platformu sağa hareket ettiren kod bloğu
             if (touchX > platformX) {
                 if (platformX + platformWidth >= canvas.width) {
                     platformX = canvas.width - platformWidth;
@@ -49,7 +49,7 @@
                     platformX += 20;
                 }
             }
-            // dokunuş platformun sol kenarından sola ise platformu sola hareket ettir
+            // dokunuş platformun sol kenarından sola ise platformu sola hareket ettiren kod bloğu
             else {
 
                 if (platformX <= 0) {
@@ -82,25 +82,22 @@
                 }
             }
         }
-        // oyun döngüsünü başlat
+        // oyun döngüsünü başlattım
         let score = 0;
         let level = 0;
         setInterval(() => {
-            // platformu tuşa basılı tutma olayını dinleyen dinleyiciyle hareket ettir
-            // platformun hareketini bu bölümde kontrol etmeye gerek yok
-
-            // topu hareket ettir
+            // topu hareket ettiren kod bloğu
             ballX += ballSpeedX;
             ballY += ballSpeedY;
 
-            // topu duvarla çarpıştığında hızını değiştir
+            // topu duvarla çarpıştığında hızını değiştiren kod bloğu
             if (ballX > canvas.width || ballX < 0) {
                 ballSpeedX *= -1;
             }
             if (ballY < 0) {
                 ballSpeedY *= -1;
             }
-            // topu platformdan aşağı düşürmeden önce platformun topa değip değmediğini kontrol et
+            // topu platformdan aşağı düşürmeden önce platformun topa değip değmediğini kontrol ettim
             if (ballY + ballSpeedY > platformY - 10 && // topun alt kenarı platformun üst kenarından 10 piksel altında olmalı
                 ballX > platformX && // topun sol kenarı platformun sol kenarından sağda olmalı
                 ballX < platformX + platformWidth) { // topun sağ kenarı platformun sağ kenarından sol da olmalı
@@ -115,7 +112,7 @@
 
                 }
             }
-            // topu platformdan aşağı düşürdüğünde oyunu bitir
+            // topu platformdan aşağı düşürdüğünde oyunu bitiren kod bloğu
             if (ballY + ballSpeedY + 5 > canvas.height) {
                 ctx.font = "30px Arial";
                 ctx.fillStyle = "black";
@@ -133,7 +130,7 @@
                 platformWidth = 100;
                 platformX = (canvas.width - platformWidth) / 2;
             }
-            // topu ve platformu görüntüle
+            // topu ve platformu görüntüleyen kod bloğu
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.beginPath();
             ctx.fillStyle = "#ff0000";
