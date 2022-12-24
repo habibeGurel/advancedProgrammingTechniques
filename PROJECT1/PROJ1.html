@@ -193,6 +193,7 @@
                 clearInterval(interval);
             }
             function restartGame() {
+                clearInterval(interval);
                 intervalCont();
             }
             document.querySelector('#restartButton').addEventListener('click', restartGame);
