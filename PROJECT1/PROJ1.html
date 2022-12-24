@@ -10,20 +10,24 @@
         display: flex;
         justify-content: space-between;
     }
+
     .button img {
         width: 48%;
         width: 50px;
         height: 50px;
     }
+
     .container {
         max-width: 380px;
         min-width: 380px;
         max-height: 600px;
         min-height: 600px;
     }
-    p{
+
+    p {
         font-size: 14px;
     }
+
 </style>
 
 <body>
@@ -34,6 +38,9 @@
         <canvas id="gameCanvas" width="380" height="440"></canvas>
         <div id="keys" tabindex="0"></div>
 
+
+        <button id="restartButton">RESTART</button>
+
         <div class="buttons">
             <button class="button" id="leftButton">
                 <img src="./buttons/left.png" alt="Left arrow">
@@ -42,8 +49,6 @@
                 <img src="./buttons/right.png" alt="Right arrow"></img>
             </button>
         </div>
-
-
 
         <script>
             // canvas elemanını seçtim
@@ -56,6 +61,8 @@
             const levelElement = document.getElementById("level");
             // tuşa basılı tutma olayını dinleyecek HTML elemanını seçtim
             const keysElement = document.getElementById("keys");
+
+            const gameOverMessage = document.getElementById("gameOverMessage");
 
             // platformun başlangıç koordinatı
             const platformY = canvas.height - 10;
@@ -112,64 +119,84 @@
             // oyun döngüsünü başlattım
             let score = 0;
             let level = 0;
-            setInterval(() => {
-                // topu hareket ettiren kod bloğu
-                ballX += ballSpeedX;
-                ballY += ballSpeedY;
 
-                // topu duvarla çarpıştığında hızını değiştiren kod bloğu
-                if (ballX > canvas.width || ballX < 0) {
-                    ballSpeedX *= -1;
-                }
-                if (ballY < 0) {
-                    ballSpeedY *= -1;
-                }
-                // topu platformdan aşağı düşürmeden önce platformun topa değip değmediğini kontrol ettim
-                if (ballY + ballSpeedY > platformY - 10 && // topun alt kenarı platformun üst kenarından 10 piksel altında olmalı
-                    ballX > platformX && // topun sol kenarı platformun sol kenarından sağda olmalı
-                    ballX < platformX + platformWidth) { // topun sağ kenarı platformun sağ kenarından sol da olmalı
-                    ballSpeedY *= -1.1;
-                    ballY += 2;
-                    score++;
-                    scoreElement.innerHTML = score;
-                    if (score % 5 == 0) {
-                        level++;
+            var interval
+            function intervalCont() {
+                interval = setInterval(() => {
+                    let control = 0;
+                    // topu hareket ettiren kod bloğu
+                    ballX += ballSpeedX;
+                    ballY += ballSpeedY;
+
+                    // topu duvarla çarpıştığında hızını değiştiren kod bloğu
+                    if (ballX > canvas.width || ballX < 0) {
+                        ballSpeedX *= -1;
+                    }
+                    if (ballY < 0) {
+                        ballSpeedY *= -1;
+                    }
+                    // topu platformdan aşağı düşürmeden önce platformun topa değip değmediğini kontrol ettim
+                    if (ballY + ballSpeedY > platformY - 10 && // topun alt kenarı platformun üst kenarından 10 piksel altında olmalı
+                        ballX > platformX && // topun sol kenarı platformun sol kenarından sağda olmalı
+                        ballX < platformX + platformWidth) { // topun sağ kenarı platformun sağ kenarından sol da olmalı
+                        ballSpeedY *= -1.1;
+                        ballY += 2;
+                        score++;
+                        scoreElement.innerHTML = score;
+                        if (score % 5 == 0) {
+                            level++;
+                            levelElement.innerHTML = level;
+                            platformWidth = platformWidth * 0.9;
+
+                        }
+                    }
+                    // topu platformdan aşağı düşürdüğünde oyunu bitiren kod bloğu
+                    if (ballY + ballSpeedY + 5 > canvas.height) {
+                        control = 1;
+                        ctx.font = "40px Arial";
+                        ctx.fillStyle = "#0095DD"
+                        ctx.fillText("GAME OVER", canvas.width / 2 - 120, canvas.height / 2);
+                        ctx.fill();
+                        ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
+                        ctx.fillStyle = "#0095DD";
+                        ctx.fill();
+                        intervalClear();
+                        ballX = canvas.width / 2;
+                        ballY = canvas.height / 2;
+                        ballSpeedX = -2;
+                        ballSpeedY = -2;
+                        score = 0;
+                        level = 0;
+                        scoreElement.innerHTML = score;
                         levelElement.innerHTML = level;
-                        platformWidth = platformWidth * 0.9;
+                        platformWidth = 100;
+                        platformX = (canvas.width - platformWidth) / 2;
 
                     }
-                }
-                // topu platformdan aşağı düşürdüğünde oyunu bitiren kod bloğu
-                if (ballY + ballSpeedY + 5 > canvas.height) {
-                    ctx.font = "30px Arial";
-                    ctx.fillStyle = "black";
-                    ctx.textAlign = "center";
-                    ctx.fillText("GAME OVER", 20, 20);
-                    alert("Oyun bitti! Skorunuz: " + score);
-                    ballX = canvas.width / 2;
-                    ballY = canvas.height / 2;
-                    ballSpeedX = -2;
-                    ballSpeedY = -2;
-                    score = 0;
-                    level = 0;
-                    scoreElement.innerHTML = score;
-                    levelElement.innerHTML = level;
-                    platformWidth = 100;
-                    platformX = (canvas.width - platformWidth) / 2;
-                }
-                // topu ve platformu görüntüleyen kod bloğu
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.beginPath();
-                ctx.fillStyle = "#ff0000";
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
-                ctx.fillStyle = "#0095DD";
-                ctx.fill();
-                ctx.closePath();
-                ctx.rect(platformX, platformY, platformWidth, 10);
-                ctx.fillStyle = "#0095DD";
-                ctx.fill();
-            }, 10);
+                    // topu ve platformu görüntüleyen kod bloğu
+                    if (control === 0) {
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                        ctx.beginPath();
+                        ctx.fillStyle = "#ff0000";
+                        ctx.fillRect(0, 0, canvas.width, canvas.height);
+                        ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
+                        ctx.fillStyle = "#0095DD";
+                        ctx.fill();
+                        ctx.closePath();
+                        ctx.rect(platformX, platformY, platformWidth, 10);
+                        ctx.fillStyle = "#0095DD";
+                        ctx.fill();
+                    }
+                }, 10);
+            }
+            function intervalClear() {
+                clearInterval(interval);
+            }
+            function restartGame() {
+                intervalCont();
+            }
+            document.querySelector('#restartButton').addEventListener('click', restartGame);
+            intervalCont();
         </script>
     </div>
     </div>
