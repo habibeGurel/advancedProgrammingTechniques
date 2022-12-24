@@ -1,6 +1,6 @@
     div {
         background-color: rgb(183, 0, 104);
-        width: 400px;
+        width: 350px;
         padding: 20px;
         border: 15px solid rgba(195, 175, 225, 0.995);
         ;
@@ -14,7 +14,7 @@
 
     .container {
         margin: 15px auto 40px auto;
-        width: 400px;
+        width: 350px;
         text-align: center;
         vertical-align: center;
     }
