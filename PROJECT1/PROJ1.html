@@ -128,7 +128,7 @@
                 if (ballY + ballSpeedY > platformY - 10 && // topun alt kenarı platformun üst kenarından 10 piksel altında olmalı
                     ballX > platformX && // topun sol kenarı platformun sol kenarından sağda olmalı
                     ballX < platformX + platformWidth) { // topun sağ kenarı platformun sağ kenarından sol da olmalı
-                    ballSpeedY *= -1;
+                    ballSpeedY *= -1.1;
                     ballY += 2;
                     score++;
                     scoreElement.innerHTML = score;
@@ -136,6 +136,7 @@
                         level++;
                         levelElement.innerHTML = level;
                         platformWidth = platformWidth * 0.9;
+
                     }
                 }
                 // topu platformdan aşağı düşürdüğünde oyunu bitiren kod bloğu
